@@ -27,17 +27,15 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Custom scrollbar */
+/* Hide scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
+  display: none;
 }
 
-::-webkit-scrollbar-track {
-  background: #0a0a10;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: var(--color-royal-blue);
+/* Hide scrollbar for IE, Edge and Firefox */
+html {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 /* Custom animations */
