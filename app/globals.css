@@ -1,0 +1,522 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-dark-blue: #0a1a40;
+  --color-light-gray: #f8f9fc;
+  --color-royal-blue: #1e3a8a;
+  --color-light-royal-blue: #3b5dc9;
+  --color-gold: #daa520;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a10;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-royal-blue);
+}
+
+/* Custom animations */
+@keyframes gradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 300% 300%;
+  animation: gradient 4s ease-in-out infinite alternate;
+}
+
+/* Writing mode for vertical text */
+.writing-mode-vertical-rl {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* Custom utilities */
+.bg-dark-blue {
+  background-color: var(--color-dark-blue);
+}
+
+.bg-light-gray {
+  background-color: var(--color-light-gray);
+}
+
+.text-royal-blue {
+  color: var(--color-royal-blue);
+}
+
+.bg-royal-blue {
+  background-color: var(--color-royal-blue);
+}
+
+.text-gold {
+  color: var(--color-gold);
+}
+
+.bg-gold {
+  background-color: var(--color-gold);
+}
+
+.border-gold {
+  border-color: var(--color-gold);
+}
+
+/* Hover effects */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px);
+}
+
+/* Font families */
+.font-mono {
+  font-family: "Fira Code", monospace;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .text-6xl {
+    font-size: 3rem;
+  }
+
+  .text-8xl {
+    font-size: 4rem;
+  }
+
+  .text-4xl {
+    font-size: 2rem;
+  }
+}
+
+/* Disable animations on mobile for better performance */
+@media (max-width: 768px) {
+  .animate-pulse,
+  .animate-gradient,
+  .animate-bounce {
+    animation: none;
+  }
+}
+
+/* Focus styles for accessibility */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+/* Selection styles */
+::selection {
+  background-color: var(--color-royal-blue);
+  color: white;
+}
+
+::-moz-selection {
+  background-color: var(--color-royal-blue);
+  color: white;
+}
+
+/* Custom cursor styles */
+body {
+  cursor: none;
+}
+
+.cursor-inner,
+.cursor-outer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  border-radius: 50%;
+}
+
+.cursor-inner {
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-gold);
+  transition: width 0.2s, height 0.2s, background-color 0.2s;
+}
+
+.cursor-outer {
+  width: 35px;
+  height: 35px;
+  border: 2px solid #fff;
+  transition: width 0.2s, height 0.2s;
+}
+
+.cursor-inner.hover {
+  width: 25px;
+  height: 25px;
+  mix-blend-mode: difference;
+}
+
+.cursor-outer.hover {
+  width: 50px;
+  height: 50px;
+}
+
+/* Tech stack animations */
+.tech-stack-box {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.tech-stack-box:hover {
+  transform: translateY(-8px);
+}
+
+/* Footer avatar eye tracking styles - Exact from HTML version */
+.footer-avatar-container {
+  width: 220px;
+  margin-top: 20px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.footer-avatar-img {
+  width: 100%;
+  z-index: 2;
+}
+
+.footer-avatar-face {
+  position: absolute;
+  width: 100%;
+  height: 97%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding-left: 5px;
+}
+
+.footer-avatar-eye {
+  width: 50px;
+  height: 50px;
+  background-color: #dfd2d2;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-pupil {
+  width: 20px;
+  height: 20px;
+  background-color: #000;
+  border-radius: 50%;
+  border: 5px solid #413333;
+  filter: blur(0.6px);
+  transition: transform 0.1s ease-out;
+  position: relative;
+}
+
+.footer-right-eye {
+  box-shadow: 15px 15px 5px rgba(0, 0, 0, 0.233) inset,
+    10px 10px 5px rgba(41, 33, 33, 0.644) inset;
+  position: relative;
+}
+
+.footer-left-eye {
+  box-shadow: -10px -15px 5px rgba(0, 0, 0, 0.349) inset;
+  position: relative;
+}
+
+.footer-avatar-eye::before {
+  position: absolute;
+  content: "";
+  width: 2px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: rgba(214, 214, 214, 0.726);
+  z-index: 2;
+  filter: blur(0.2px);
+  left: 15px;
+  transform: rotate(45deg);
+}
+
+/* Mobile: Show default cursor */
+@media (max-width: 768px) {
+  body {
+    cursor: default;
+  }
+
+  .cursor-inner,
+  .cursor-outer {
+    display: none;
+  }
+}
+
+/* Social media icons styling */
+.SocialHandle {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.SocialHandle:hover {
+  transform: scale(1.1) translateY(-2px);
+}
+
+/* Footer specific background */
+#footer {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Back to top button improvements */
+.fas {
+  font-size: 16px;
+  padding: 12px 20px;
+  background: rgba(139, 92, 246, 0.9);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.fas:hover {
+  background: rgba(139, 92, 246, 1);
+  transform: translateY(-2px);
+}
+
+@keyframes jello-horizontal {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+  30% {
+    transform: scale3d(1.25, 0.75, 1);
+  }
+  40% {
+    transform: scale3d(0.75, 1.25, 1);
+  }
+  50% {
+    transform: scale3d(1.15, 0.85, 1);
+  }
+  65% {
+    transform: scale3d(0.95, 1.05, 1);
+  }
+  75% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.jello-name {
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.jello-name:hover {
+  animation: jello-horizontal 0.9s both;
+  background: linear-gradient(to right, #9333ea, #ec4899);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: 2px 2px 20px rgba(147, 51, 234, 0.2);
+}
+
+@keyframes jello-vertical {
+  0%,
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+  30% {
+    transform: scale3d(0.8, 1.2, 1);
+  }
+  40% {
+    transform: scale3d(1.2, 0.8, 1);
+  }
+  50% {
+    transform: scale3d(0.9, 1.1, 1);
+  }
+  65% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  75% {
+    transform: scale3d(0.95, 1.05, 1);
+  }
+}
+
+.jello {
+  display: inline-block;
+  cursor: default;
+}
+
+.jello:hover {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-color: #03e6ff;
+  -webkit-animation: 0.9s both jello-vertical;
+  animation: 0.9s both jello-vertical;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes pop-up {
+  from {
+    bottom: -50px;
+    left: 50px;
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.popup {
+  animation: 3s linear pop-up;
+}
+
+/* Logo and Avatar Styles */
+.logo {
+  width: 80px;
+  height: 80px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  transition-duration: 1s;
+  overflow: hidden;
+}
+
+.logo-top {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: bottom;
+  position: relative;
+}
+
+.logo-top img {
+  height: 100%;
+  z-index: 2;
+}
+
+.face {
+  position: absolute;
+  height: 74%;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  z-index: 1;
+  padding-left: 1px;
+}
+
+.eye {
+  width: 8px;
+  height: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.left-eye {
+  box-shadow: -1px -2px 2px rgba(0, 0, 0, 0.589) inset;
+}
+
+.right-eye {
+  box-shadow: 1px 3px 2px rgba(0, 0, 0, 0.589) inset;
+}
+
+.pupil {
+  width: 3.5px;
+  height: 3.5px;
+  background: #241010;
+  border-radius: 50%;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.logo:hover {
+  animation: float 3s ease-in-out infinite;
+}
+
+@media screen and (max-width: 768px) {
+  .logo {
+    width: 60px;
+    height: 60px;
+  }
+  .logo:hover {
+    transform: translateY(200px);
+    transition-duration: 1s;
+  }
+}
