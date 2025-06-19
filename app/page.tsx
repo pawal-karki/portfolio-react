@@ -348,7 +348,7 @@ export default function Portfolio() {
     }
   };
 
-  // GSAP animations setup with dynamic import
+  // Lightweight GSAP animations setup
   useEffect(() => {
     const initGSAP = async () => {
       if (typeof window !== "undefined") {
@@ -357,69 +357,84 @@ export default function Portfolio() {
 
         gsap.registerPlugin(ScrollTrigger);
 
-        // Navbar animation
-        gsap.from(".navbar-content", {
-          y: -100,
-          opacity: 0,
-          duration: 1,
-          ease: "power3.out",
+        // Set default ease and reduce motion for better performance
+        gsap.defaults({ ease: "power2.out" });
+
+        // Simple navbar fade-in
+        gsap.set(".navbar-content", { opacity: 0, y: -20 });
+        gsap.to(".navbar-content", {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
         });
 
-        // Hero section animations
-        gsap.from(".hero-content", {
-          y: 100,
-          opacity: 0,
-          duration: 1,
-          delay: 0.5,
-          ease: "power3.out",
+        // Hero section fade-in
+        gsap.set(".hero-content", { opacity: 0, y: 30 });
+        gsap.to(".hero-content", {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          delay: 0.2,
         });
 
-        // Scroll-triggered animations for sections
+        // Lightweight scroll-triggered animations
         const sections = [
           ".about-section",
           ".skills-section",
           ".projects-section",
         ];
+
         sections.forEach((section) => {
-          gsap.from(section, {
+          gsap.fromTo(
+            section,
+            { opacity: 0, y: 20 },
+            {
+              scrollTrigger: {
+                trigger: section,
+                start: "top 85%",
+                toggleActions: "play none none none",
+                once: true, // Only animate once for better performance
+              },
+              opacity: 1,
+              y: 0,
+              duration: 0.6,
+            }
+          );
+        });
+
+        // Simplified project cards animation
+        gsap.fromTo(
+          ".project-card",
+          { opacity: 0, y: 30 },
+          {
             scrollTrigger: {
-              trigger: section,
-              start: "top 80%",
-              end: "top 20%",
-              toggleActions: "play none none reverse",
+              trigger: ".projects-section",
+              start: "top 70%",
+              once: true,
             },
-            y: 60,
-            opacity: 0,
-            duration: 1,
-            ease: "power3.out",
-          });
-        });
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            stagger: 0.1,
+          }
+        );
 
-        // Project cards stagger animation
-        gsap.from(".project-card", {
-          scrollTrigger: {
-            trigger: ".projects-section",
-            start: "top 60%",
-          },
-          y: 100,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.2,
-          ease: "power3.out",
-        });
-
-        // Tech stack icons animation
-        gsap.from(".tech-icon", {
-          scrollTrigger: {
-            trigger: ".skills-section",
-            start: "top 70%",
-          },
-          scale: 0,
-          opacity: 0,
-          duration: 0.5,
-          stagger: 0.1,
-          ease: "back.out(1.7)",
-        });
+        // Lightweight tech icons animation
+        gsap.fromTo(
+          ".tech-icon",
+          { opacity: 0, scale: 0.8 },
+          {
+            scrollTrigger: {
+              trigger: ".skills-section",
+              start: "top 75%",
+              once: true,
+            },
+            opacity: 1,
+            scale: 1,
+            duration: 0.4,
+            stagger: 0.05,
+          }
+        );
       }
     };
 

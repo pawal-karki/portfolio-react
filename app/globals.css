@@ -37,7 +37,7 @@ html {
   scrollbar-width: none; /* Firefox */
 }
 
-/* Custom animations */
+/* Lightweight animations with reduced motion */
 @keyframes gradient {
   0%,
   100% {
@@ -49,8 +49,23 @@ html {
 }
 
 .animate-gradient {
-  background-size: 300% 300%;
-  animation: gradient 4s ease-in-out infinite alternate;
+  background-size: 200% 200%;
+  animation: gradient 6s ease-in-out infinite alternate;
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .animate-gradient {
+    animation: none;
+  }
 }
 
 /* Writing mode for vertical text */
@@ -88,13 +103,20 @@ html {
   border-color: var(--color-gold);
 }
 
-/* Hover effects */
+/* Lightweight hover effects */
 .hover-lift {
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.2s ease-out;
+  will-change: transform;
 }
 
 .hover-lift:hover {
-  transform: translateY(-8px);
+  transform: translateY(-4px);
+}
+
+/* Optimize for performance */
+.hover-lift,
+.tech-stack-box {
+  transform: translateZ(0); /* Enable hardware acceleration */
 }
 
 /* Font families */
@@ -184,14 +206,15 @@ body {
   height: 50px;
 }
 
-/* Tech stack animations */
+/* Lightweight tech stack animations */
 .tech-stack-box {
   position: relative;
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  will-change: transform;
 }
 
 .tech-stack-box:hover {
-  transform: translateY(-8px);
+  transform: translateY(-3px) translateZ(0);
 }
 
 /* Footer avatar eye tracking styles - Exact from HTML version */
