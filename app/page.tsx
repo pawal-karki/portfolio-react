@@ -768,7 +768,7 @@ export default function Portfolio() {
         ref={(el) => {
           if (el) sectionsRef.current.home = el;
         }}
-        className="hero-content min-h-screen flex items-center justify-center relative overflow-hidden pt-24"
+        className="hero-content min-h-screen flex items-center justify-center relative overflow-hidden pt-40 md:pt-32 lg:pt-24"
       >
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
