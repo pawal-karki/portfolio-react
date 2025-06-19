@@ -348,7 +348,7 @@ export default function Portfolio() {
     }
   };
 
-  // Lightweight GSAP animations setup
+  // Butter-smooth GSAP animations setup
   useEffect(() => {
     const initGSAP = async () => {
       if (typeof window !== "undefined") {
@@ -357,84 +357,150 @@ export default function Portfolio() {
 
         gsap.registerPlugin(ScrollTrigger);
 
-        // Set default ease and reduce motion for better performance
-        gsap.defaults({ ease: "power2.out" });
+        // Set smooth default easing for butter-like motion
+        gsap.defaults({
+          ease: "power2.out",
+          force3D: true, // Enable hardware acceleration
+        });
 
-        // Simple navbar fade-in
-        gsap.set(".navbar-content", { opacity: 0, y: -20 });
+        // Silky navbar entrance
+        gsap.set(".navbar-content", {
+          opacity: 0,
+          y: -30,
+          rotationX: -15,
+          transformOrigin: "center top",
+        });
         gsap.to(".navbar-content", {
           opacity: 1,
           y: 0,
-          duration: 0.6,
+          rotationX: 0,
+          duration: 1.2,
+          ease: "power3.out",
         });
 
-        // Hero section fade-in
-        gsap.set(".hero-content", { opacity: 0, y: 30 });
+        // Hero section with elastic entrance
+        gsap.set(".hero-content", {
+          opacity: 0,
+          y: 50,
+          scale: 0.95,
+        });
         gsap.to(".hero-content", {
           opacity: 1,
           y: 0,
-          duration: 0.8,
-          delay: 0.2,
+          scale: 1,
+          duration: 1.4,
+          delay: 0.3,
+          ease: "power3.out",
         });
 
-        // Lightweight scroll-triggered animations
+        // Butter-smooth scroll-triggered animations
         const sections = [
           ".about-section",
           ".skills-section",
           ".projects-section",
         ];
 
-        sections.forEach((section) => {
+        sections.forEach((section, index) => {
           gsap.fromTo(
             section,
-            { opacity: 0, y: 20 },
+            {
+              opacity: 0,
+              y: 40,
+              scale: 0.98,
+            },
             {
               scrollTrigger: {
                 trigger: section,
-                start: "top 85%",
-                toggleActions: "play none none none",
-                once: true, // Only animate once for better performance
+                start: "top 80%",
+                end: "top 20%",
+                toggleActions: "play none none reverse",
+                scrub: false,
               },
               opacity: 1,
               y: 0,
-              duration: 0.6,
+              scale: 1,
+              duration: 1.2,
+              delay: index * 0.1,
+              ease: "power3.out",
             }
           );
         });
 
-        // Simplified project cards animation
+        // Cascading project cards with smooth stagger
         gsap.fromTo(
           ".project-card",
-          { opacity: 0, y: 30 },
+          {
+            opacity: 0,
+            y: 60,
+            rotationY: 15,
+            scale: 0.9,
+          },
           {
             scrollTrigger: {
               trigger: ".projects-section",
               start: "top 70%",
-              once: true,
+              toggleActions: "play none none reverse",
             },
             opacity: 1,
             y: 0,
-            duration: 0.5,
-            stagger: 0.1,
+            rotationY: 0,
+            scale: 1,
+            duration: 1,
+            stagger: {
+              amount: 0.6,
+              ease: "power2.out",
+            },
+            ease: "power3.out",
           }
         );
 
-        // Lightweight tech icons animation
+        // Bouncy tech icons with elastic feel
         gsap.fromTo(
           ".tech-icon",
-          { opacity: 0, scale: 0.8 },
+          {
+            opacity: 0,
+            scale: 0.3,
+            rotation: -180,
+          },
           {
             scrollTrigger: {
               trigger: ".skills-section",
               start: "top 75%",
-              once: true,
+              toggleActions: "play none none reverse",
             },
             opacity: 1,
             scale: 1,
-            duration: 0.4,
-            stagger: 0.05,
+            rotation: 0,
+            duration: 0.8,
+            stagger: {
+              amount: 0.4,
+              ease: "power2.out",
+            },
+            ease: "back.out(1.2)",
           }
         );
+
+        // Smooth hover effects for interactive elements
+        const hoverElements = document.querySelectorAll(".hover-element");
+        hoverElements.forEach((el) => {
+          el.addEventListener("mouseenter", () => {
+            gsap.to(el, {
+              scale: 1.05,
+              y: -5,
+              duration: 0.4,
+              ease: "power2.out",
+            });
+          });
+
+          el.addEventListener("mouseleave", () => {
+            gsap.to(el, {
+              scale: 1,
+              y: 0,
+              duration: 0.4,
+              ease: "power2.out",
+            });
+          });
+        });
       }
     };
 
